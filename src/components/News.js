@@ -10,7 +10,10 @@ const News = (props) => {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [totalResults, setTotalresults] = useState(0)
-  document.title = `NewsBar | ${props.category}` // check this tmrw
+
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   const upDateNews = async () => {
     props.setProgress(10);
@@ -34,7 +37,9 @@ const News = (props) => {
   }
 
   useEffect(() => {
+    // check this tmrw
    setLoading(true);
+  document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
    upDateNews();
   }, []) // in this [], we write the condition which when becomes true we do this change
   
@@ -48,18 +53,18 @@ const News = (props) => {
 
   const handlePrev = async () => {
 
-    await setPage(page - 1);
+    await setPage(page - 1); // we have to use 'await' as the setPage function is taking some time and in the mean time URL in upDateNews is created hence repeating the data 
     upDateNews();
   }
 
 
   const fetchMoreData = async () => {
     if (articles.length < 90) {
-      setPage(page + 1);
       // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=349826f0760b4aebb81e15f627f99c0d&page=${page + 1}&pageSize=${props.pageSize}`
       // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=f3dc06408822401ebe85bd67d79966c1&page=${page + 1}&pageSize=${props.pageSize}`
       const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`
-      
+      setPage(page + 1);
+
       setLoading(true)
       let data = await fetch(url);
       let parsedData = await data.json();
@@ -73,7 +78,7 @@ const News = (props) => {
 
     return (
       <>
-        <h2 className='text-center' style={{ margin: '20px 0px' }} >Top Headlines of the Day from {props.category} </h2>
+        <h2 className='text-center' style={{ margin: '20px 0px', marginTop:'83px' }} >Top {capitalizeFirstLetter(props.category)} Headlines </h2>
       
 
         <InfiniteScroll
