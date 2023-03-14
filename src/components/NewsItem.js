@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-export class Newsitem extends Component {
-  render() {
-    let { title, description, imageUrl, newsUrl, author, date, source } = this.props; // to get access to props we hv to write this.props as this is a class based component
+import React from 'react'
+const Newsitem = (props) => {
+    let { title, description, imageUrl, newsUrl, author, date, source } = props; // to get access to props we hv to write this.props as this is a class based component
     // the above lines means that from any object(here this.props) we will pull out title, description and is available to use inside render part
 
     return (
@@ -23,6 +22,5 @@ export class Newsitem extends Component {
       </div>
     )
   }
-}
 
 export default Newsitem
