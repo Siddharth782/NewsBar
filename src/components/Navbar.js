@@ -37,7 +37,6 @@ export default function Navbar() {
                             </li>
                         </ul>
                     </div>
-                    {/* <TbBulb onClick={toggler}/> */}
                 </div>
             </nav>
         </div>

@@ -9,4 +9,3 @@ const spinner = () => {
     )
   }
 export default spinner
-// both of the ways are correct for function based components

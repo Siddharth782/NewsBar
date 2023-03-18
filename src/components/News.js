@@ -17,8 +17,6 @@ const News = (props) => {
 
   const upDateNews = async () => {
     props.setProgress(10);
-    // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=e6f57c90c63246b49de838c6eaea3836&page=${page + 1}&pageSize=${props.pageSize}`
-    // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=349826f0760b4aebb81e15f627f99c0d&page=${page}&pageSize=${props.pageSize}`
     const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
     
     props.setProgress(30);
@@ -41,8 +39,7 @@ const News = (props) => {
    setLoading(true);
   document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
    upDateNews();
-  }, []) // in this [], we write the condition which when becomes true we do this change
-  
+  }, [])  
 
 
   const handleNext = async () => {
@@ -53,15 +50,13 @@ const News = (props) => {
 
   const handlePrev = async () => {
 
-    await setPage(page - 1); // we have to use 'await' as the setPage function is taking some time and in the mean time URL in upDateNews is created hence repeating the data 
+    await setPage(page - 1);
     upDateNews();
   }
 
 
   const fetchMoreData = async () => {
     if (articles.length < 90) {
-      // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=349826f0760b4aebb81e15f627f99c0d&page=${page + 1}&pageSize=${props.pageSize}`
-      // const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=f3dc06408822401ebe85bd67d79966c1&page=${page + 1}&pageSize=${props.pageSize}`
       const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&language=en&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`
       setPage(page + 1);
 
@@ -76,6 +71,11 @@ const News = (props) => {
 
   }
 
+  const spinning = () => {
+    if(articles.length<90) return <Spinner />
+    else <></>
+  }
+
     return (
       <>
         <h2 className='text-center' style={{ margin: '20px 0px', marginTop:'83px' }} >Top {capitalizeFirstLetter(props.category)} Headlines </h2>
@@ -83,10 +83,9 @@ const News = (props) => {
 
         <InfiniteScroll
           dataLength={articles.length}
-          // dataLength={100}
           next={fetchMoreData}
           hasMore={articles.length !== 100}
-          loader={<Spinner />}
+          loader={spinning()}
         >
           <div className="container">
             <div className="row justify-content-center align-items-start">
@@ -104,8 +103,6 @@ const News = (props) => {
 
     )
   }
-
-// constructor then render then componentdidmount
 
 News.defaultProps = {
   country: "in",
