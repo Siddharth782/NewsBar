@@ -35,25 +35,10 @@ const News = (props) => {
   }
 
   useEffect(() => {
-    // check this tmrw
    setLoading(true);
-  document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`;
+  document.title = `${capitalizeFirstLetter(props.category)} - NewsBar`;
    upDateNews();
   }, [])  
-
-
-  const handleNext = async () => {
- 
-    await setPage(page + 1);
-    upDateNews();
-  }
-
-  const handlePrev = async () => {
-
-    await setPage(page - 1);
-    upDateNews();
-  }
-
 
   const fetchMoreData = async () => {
     if (articles.length < 90) {

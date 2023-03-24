@@ -1,7 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
-import PropTypes from 'prop-types'
-import { TbBulb } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
